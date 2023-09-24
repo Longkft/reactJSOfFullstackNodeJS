@@ -5,6 +5,7 @@ import { push } from "connected-react-router";
 import * as actions from "../../store/actions";
 import './Login.scss';
 import { FormattedMessage } from 'react-intl';
+import { handleLoginAPI } from '../../services/userService';
 
 // import adminService from '../services/adminService';
 
@@ -32,9 +33,15 @@ class Login extends Component {
         // console.log(event.target.value);
     }
 
-    handleLogin = (event) => {
+    handleLogin = async () => {
         console.log('username:' + this.state.username);
         console.log('password:' + this.state.password);
+
+        try {
+            await handleLoginAPI(this.state.username, this.state.password);
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     handleSoHidePassword = (event) => {
